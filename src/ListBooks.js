@@ -5,6 +5,10 @@ class ListBooks extends Component {
 
 	render() {
 
+		const { books, onUpdateBook } = this.props
+
+		console.log(books)
+
 		return (
 
 			          <div className="list-books">
@@ -12,6 +16,9 @@ class ListBooks extends Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
+
+
+
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
@@ -163,7 +170,7 @@ class ListBooks extends Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link to='/search'>Add a book</Link>
             </div>
           </div>
 
