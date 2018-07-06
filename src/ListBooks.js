@@ -7,8 +7,19 @@ class ListBooks extends Component {
 
 		const { books, onUpdateBook } = this.props
 
-		const bookShelf = ['currentlyReading','wantToRead','read']
-		const bookShelfTitle = ['Currently Reading','Want to Read','Read']
+    const bookShelf = [
+      {
+        title: 'Currently Reading',
+        type: 'currentlyReading'
+      },
+      {
+        title: 'Want to Read',
+        type: 'wantToRead'
+      },
+      {
+        title: 'Read',
+        type: 'read'
+      }]
 
 		console.log(books)
 
@@ -20,12 +31,12 @@ class ListBooks extends Component {
             <div className="list-books-content">
               <div>
 
-              {bookShelf.map((shelf, index) => (
-				<div className="bookshelf" key={shelf}>
-                  	<h2 className="bookshelf-title">{bookShelfTitle[index]}</h2>
+              {bookShelf.map(shelf => (
+				<div className="bookshelf" key={shelf.type}>
+                  	<h2 className="bookshelf-title">{shelf.title}</h2>
                   	<div className="bookshelf-books">
 					<ol className="books-grid">
-              			{books.filter((book) => book.shelf === shelf).map((book) => (
+              			{books.filter((book) => book.shelf === shelf.type).map((book) => (
 				  	
               			<li key={book.id}>
 
@@ -34,7 +45,7 @@ class ListBooks extends Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select value={book.shelf} onChange={(e) => onUpdateBook(e.target.value, book)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
