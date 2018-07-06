@@ -7,6 +7,9 @@ class ListBooks extends Component {
 
 		const { books, onUpdateBook } = this.props
 
+		const bookShelf = ['currentlyReading','wantToRead','read']
+		const bookShelfTitle = ['Currently Reading','Want to Read','Read']
+
 		console.log(books)
 
 		return (
@@ -16,11 +19,13 @@ class ListBooks extends Component {
             </div>
             <div className="list-books-content">
               <div>
-				<div className="bookshelf">
-                  	<h2 className="bookshelf-title">Currently Reading</h2>
+
+              {bookShelf.map((shelf, index) => (
+				<div className="bookshelf" key={shelf}>
+                  	<h2 className="bookshelf-title">{bookShelfTitle[index]}</h2>
                   	<div className="bookshelf-books">
 					<ol className="books-grid">
-              			{books.filter((book) => book.shelf == "currentlyReading").map((book) => (
+              			{books.filter((book) => book.shelf === shelf).map((book) => (
 				  	
               			<li key={book.id}>
 
@@ -48,7 +53,11 @@ class ListBooks extends Component {
 		              	))}
                 	</ol>
                 	</div>
+
               		</div>
+
+
+              	))}
               </div>
             </div>
             <div className="open-search">
