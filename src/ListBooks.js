@@ -22,7 +22,6 @@ class ListBooks extends Component {
         type: 'read'
       }]
 
-		console.log(books)
 
 		return (
           <div className="list-books">

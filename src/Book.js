@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+
 
 class Book extends Component {
 
@@ -13,7 +13,7 @@ render() {
 
         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                            {book.imageLinks !== undefined && (<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>)}
                             <div className="book-shelf-changer">
                               <select value={book.shelf} onChange={(e) => onUpdating(e.target.value, book)}>
                                 <option value="move" disabled>Move to...</option>
@@ -25,7 +25,7 @@ render() {
                             </div>
                           </div>
                           <div className="book-title">{book.title}</div>
-                          <div className="book-authors">{book.authors[0]}</div>
+                          {book.authors !== undefined && (<div className="book-authors">{book.authors}</div>)}
                         </div>
 
 		)
