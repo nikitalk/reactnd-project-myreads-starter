@@ -6,15 +6,20 @@ import Book from './Book'
 class SearchBook extends Component {
   state = {
     query: '',
-    books: []
+    books: [],
+    zeroSearch: false
   }
 
   updateQuery = (query) => {
-    this.setState({ query })
-    BooksAPI.search(query.trim()).then((books) => {
-      this.addShelf(books)
-      this.setState({ books })
-    })
+    if (query) {
+      this.setState({ query })
+      BooksAPI.search(query.trim()).then((books) => {
+        if (!books.error) { 
+          this.addShelf(books)
+          this.setState({ books, zeroSearch: false })
+        } else this.setState({ books: [], zeroSearch: true })
+      })
+    } else this.setState({ query: '', books: []})
   }
 
   addShelf = (books) => {
@@ -41,9 +46,10 @@ class SearchBook extends Component {
             />
           </div>
         </div>
-        <div className="search-books-results">
+        <div className="search-books-results">      
           <ol className="books-grid">
-            {(this.state.books !== undefined) && (this.state.books.length > 0) && (
+            {this.state.zeroSearch && (<div>Books not found</div>)}
+            {(this.state.query !== '') && (this.state.books !== undefined) && (
               this.state.books.map((book) => (         
                 <li key={book.id}>
                   <Book 
